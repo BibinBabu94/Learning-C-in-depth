@@ -1,0 +1,25 @@
+//Favorite food question and generating a radom number between 1 to 6, Basic C++ Learning
+#include<iostream>        //input output library
+#include<cstdlib>        //standard library
+using namespace std;
+int main()
+{
+  string name, food;
+  cin>>name;
+  cout<< "My name is: "<< name<<" May I know your favorite food??"<<endl;
+  cin>>food;
+cout<<"yes sure!!"<<"my favorite food is: "<< food<<endl;
+int r;
+srand(time(0));      // To generate random numbers everytime
+r=(rand()%6)+1;      // Random number between 1 and 6  
+cout<<"random number is: "<<r<<endl;
+}
+
+
+Output is 
+
+Bibin
+My name is: Bibin May I know your favorite food??
+Pizza
+yes sure!!my favorite food is: Pizza
+random number is: 2
