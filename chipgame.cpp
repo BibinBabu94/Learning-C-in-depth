@@ -1,4 +1,4 @@
-//Creating a game player collecting chips and the player to collect the last chip will loss the game......
+/*Creating a game player collecting chips and the player to collect the last chip will loss the game......*/
 #include<iostream>		//input output library
 #include<cstdlib>		//Standard Library
 #include <cmath>		//used for static_cast<datatype> or floor and ceil
