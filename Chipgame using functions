@@ -1,0 +1,80 @@
+// Creating a game player collecting chips and the player to collect the last
+// chip will loss the game......
+#include <cctype>
+#include <cmath>
+#include <cstdlib>
+#include <iostream>
+using namespace std;
+const int Max_Count = 100; // declaring the number of chips to 100
+string player(string name[], bool playerturn);
+void getname(string names[]);
+int game(int &totalchip, string name[0], bool player1);
+int main() {
+	bool player1 = true;
+	bool gameover = false;
+	string playername[2];
+	char ans;
+	int totalchip, chip, chiptaken;
+	srand(time(0));
+	getname(playername);
+	do {
+		bool gameover = false;
+		totalchip = (rand() % 100) + 1;
+		cout << "This round will start with : " << totalchip << "chips \n";
+		while (gameover == false) {
+			game(totalchip, playername, player1);
+			cout << "there are" << totalchip << " left \n";
+			if (totalchip == 0) {
+				gameover = true;
+				cout << "Congrats" << player(playername, player1) << "\n";
+
+				cout << "Do you wish to play again\n"
+					 << "y or n"
+					 << "\n";
+				cin >> ans;
+				ans = toupper(ans);
+			} else {
+				player1 = !player1;
+			}
+		}
+	} while (ans == 'Y');
+	return 0;
+}
+void getname(string names[]) {
+	cout << "enter player1 name ";
+	cin >> names[0];
+	cout << "enter player2 name ";
+	cin >> names[1];
+}
+string player(string name[], bool playerturn) {
+	if (playerturn == true)
+		return name[0];
+	else
+		return name[1];
+}
+int game(int &totalchip, string name[0], bool player1) {
+	int chip, chiptaken;
+	do {
+		cout << player(name, player1)
+			 << "s Turn. How many chipset would you like \n";
+		chip = totalchip * 0.5; // maximum chip a player can take is half of the
+								// available chipset
+		cout << "You can take :";
+		if (chip == 0) {
+			cout << "1"
+				 << "\n";
+		} else {
+			cout << chip << endl;
+		}
+		cin >> chiptaken;
+		cout << "Chipset taken by player is :" << chiptaken << endl;
+		if ((chiptaken > chip) && (chip > 0)) {
+			cout << "you could select only " << chip
+				 << " or less than that. Please renter. Thanks!!" << endl;
+		}
+
+	} while ((chiptaken > chip) && (totalchip > 1));
+
+	totalchip = totalchip - chiptaken;
+	return chiptaken;
+}
