@@ -1,0 +1,17 @@
+void functionname( int a, char b);              Function prototype needed in case we declare the function after main
+int main()
+{
+functionname()                                  Calling function in main
+.
+}
+void functionname(int a, char b)                Function with body( Function call by value)
+{
+std::function body
+.
+.
+}
+void func1(int& a , int b)                       Function call by reference
+{
+.
+.
+}
