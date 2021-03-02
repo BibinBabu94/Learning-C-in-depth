@@ -1,0 +1,121 @@
+// Creating a game player collecting chips and the player to collect the last chip will loss the game......
+#include <cctype>        //Header used for isupper, islower function
+#include <cmath>         //Used for time(0) function with srand
+#include <cstdlib>       //Standard Libraby for random
+#include <iostream>      //Standard I/O library
+#include <fstream>      //File stream library
+using namespace std;
+const int Max_Count = 100; // declaring the number of chips to 100
+//struct declartion for players name and to give the number of wins they acquired
+struct player
+{
+  string name;
+  int wins=0;
+};
+//Function prototypes because all my functions are declared after the main()
+string move(player[], bool playerturn);
+void getname(player[]);
+int game(player[], bool player1,int &totalchip);
+void winnerno(player playername[],bool player1);
+int main() {
+  ofstream fileA;               //output stream used to write to a file
+//in case of write its not necessary that the .txt file exsist 
+fileA.open("chipgame.txt",ios::app);  //ios::app in order to avoid overwriting
+	bool player1 = true;
+	bool gameover = false;
+	player playername[2];              //struct declaration
+	char ans;
+	int totalchip, chip, chiptaken,i=0;
+	//srand used to create random number everytime
+  srand(time(0));
+  //Function getname to enter players name
+	getname(playername);
+  //do while used in case the players wish to replay
+	do {
+		bool gameover = false;
+    player1 = true;
+    int i=0;
+		totalchip = (rand() % 100) + 1;
+		cout << "This round will start with : " << totalchip << "chips \n";
+ //Starting of game
+		while (gameover == false) {
+      {
+      game(playername, player1, totalchip);
+			cout << "there are" << totalchip << " left \n";
+      i++;}
+      // loop checking total chip left
+			if (totalchip == 0) {
+				gameover = true;
+        player1 =!player1;
+        //Number of moves taken until the game is over
+         fileA<<"moves taken"<<i<<endl;
+         	fileA<< "Congrats" << move(playername, player1) << "\n";
+				cout<< "Congrats" << move(playername, player1) << "\n";
+         winnerno(playername,player1);
+
+				cout << "Do you wish to play again\n"
+					 << "y or n"
+					 << "\n";
+				cin >> ans;
+				ans = toupper(ans);  
+			} 
+      else {
+				player1 = !player1;
+			}
+     
+		}
+    
+	} while (ans == 'Y');
+  cout<<"no of wins of "<<playername[0].name<<" is "<<playername[0].wins<<endl;
+  cout<<"no of wins of "<<playername[1].name<<" is "<<playername[1].wins<<endl;
+	return 0;
+}
+// Function Declarations 
+void getname(player playername[]) {
+	cout << "enter player1 name ";
+	cin >> playername[0].name;
+	cout << "enter player2 name ";
+	cin >> playername[1].name;
+  playername[0].wins=0;
+  playername[1].wins =0;
+}
+string move(player playername[], bool player1) {
+	if (player1)
+		return playername[0].name;
+	else
+		return playername[1].name;
+}
+int game(player playername[0], bool player1,int &totalchip) {
+	int chip, chiptaken;
+	do {
+		cout << move(playername, player1)
+			 << "s Turn. How many chipset would you like \n";
+		chip = totalchip * 0.5; // maximum chip a player can take is half of the
+								// available chipset
+		cout << "You can take :";
+		if (chip == 0) {
+			cout << "1"
+				 << "\n";
+		} else {
+			cout << chip << endl;
+		}
+		cin >> chiptaken;
+		cout << "Chipset taken by player is :" << chiptaken << endl;
+		if ((chiptaken > chip) && (chip > 0)) {
+			cout << "you could select only " << chip
+				 << " or less than that. Please renter. Thanks!!" << endl;
+
+		}
+
+	} while ((chiptaken > chip) && (totalchip > 1));
+
+	totalchip = totalchip - chiptaken;
+	return chiptaken;
+}
+void winnerno(player playername[],bool player1)
+{
+  if(player1)
+  playername[0].wins++;
+  else
+  playername[1].wins++;
+}
