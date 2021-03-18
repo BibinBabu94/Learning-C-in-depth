@@ -1,0 +1,15 @@
+They are used to create character specialization. Similar to functions but this are run during compilation time.
+
+Syntax:
+
+template <typename T>
+T maxof(const T &a, const T &b)
+{
+return(a<b: a ? b);
+}
+
+int main()
+{
+
+cout<<maxof<int>( 10, 11);
+}
