@@ -1,0 +1,30 @@
+
+#include <iostream>
+#include<vector>
+#include<list>
+using namespace std;
+template<typename T>
+void printli(list <T> & list) {
+    if(list.empty()) return;
+    for(T &i : list) cout << i << " ";
+    cout << endl;
+}
+
+
+int main()
+{
+  list<int>l={1,2,3,4,5,6};
+  vector<int>myvector={1,2,3,4,5,6,7,8,9,10};
+ myvector.push_back(300);
+ myvector.push_back(100);
+ for(int i:myvector)
+ cout<<i<<" ";
+ cout<<endl;
+
+  list<int>::iterator it1= l.begin();
+  while((*++it1 != 2) && (it1 != l.end()));
+if(it1!=l.end())
+{
+ l.insert(it1,100);}
+ printli(l);
+}
