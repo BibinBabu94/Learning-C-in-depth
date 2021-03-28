@@ -20,7 +20,7 @@ int main()
  for(int i:myvector)
  cout<<i<<" ";
  cout<<endl;
-
+//iterators needed for list whilw we use insert functions along with list...
   list<int>::iterator it1= l.begin();
   while((*++it1 != 2) && (it1 != l.end()));
 if(it1!=l.end())
